@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 import 'config/theme/app_theme.dart';
 import 'config/navigator/app_router.dart';
 
-void main() {
+Future<void> main() async {
+  // Manejo de variables de entorno con flutter_dotenv
+  // Cargamos varibles configuradas en el archivo .env
+  await dotenv.load(fileName: '.env');
+  
   runApp(const MainApp());
 }
 
