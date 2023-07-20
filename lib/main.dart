@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'config/theme/app_theme.dart';
 import 'config/navigator/app_router.dart';
@@ -8,8 +9,9 @@ Future<void> main() async {
   // Manejo de variables de entorno con flutter_dotenv
   // Cargamos varibles configuradas en el archivo .env
   await dotenv.load(fileName: '.env');
-  
-  runApp(const MainApp());
+
+  /// ProviderScope => Hara referencia a todos los provider de la App usando riverpod
+  runApp(const ProviderScope(child: MainApp()));
 }
 
 class MainApp extends StatelessWidget {
@@ -18,8 +20,6 @@ class MainApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp.router(
-      routerConfig: appRouter,
-      theme: AppTheme().getTheme()
-    );
+        routerConfig: appRouter, theme: AppTheme().getTheme());
   }
 }

@@ -1,33 +1,33 @@
 class Movie {
-  final bool adult;
-  final String backdropPath;
-  final List<String> genreIds;
   final int id;
-  final String originalLanguage;
-  final String originalTitle;
-  final String overview;
-  final double popularity;
-  final String posterPath;
-  final DateTime releaseDate;
-  final String title;
+  final bool adult;
   final bool video;
-  final double voteAverage;
+  final String title;
   final int voteCount;
+  final String overview;
+  final String posterPath;
+  final double popularity;
+  final double voteAverage;
+  final String backdropPath;
+  final DateTime releaseDate;
+  final String originalTitle;
+  final List<String> genreIds;
+  final String originalLanguage;
 
   Movie({
-    required this.adult,
-    required this.backdropPath,
-    required this.genreIds,
     required this.id,
-    required this.originalLanguage,
-    required this.originalTitle,
+    required this.adult,
+    required this.title,
+    required this.video,
+    required this.genreIds,
     required this.overview,
+    required this.voteCount,
     required this.popularity,
     required this.posterPath,
     required this.releaseDate,
-    required this.title,
-    required this.video,
     required this.voteAverage,
-    required this.voteCount
+    required this.backdropPath,
+    required this.originalTitle,
+    required this.originalLanguage,
   });
 }
