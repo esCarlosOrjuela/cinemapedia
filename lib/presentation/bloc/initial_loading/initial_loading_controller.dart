@@ -16,16 +16,15 @@ class InitialLoadingController extends Cubit<LoadingState> {
       moviesRepository.getNowPlaying(),
       moviesRepository.getUpcoming(),
       moviesRepository.gePopular(),
-      moviesRepository.getUpcoming(),
       moviesRepository.getTopRated(),
     ]);
 
     emit(SteadyLoadingState(
       nowPlayingMovies: response[0].isEmpty ? [] : response[0].sublist(0, 8),
-      slideShowMovies: response[1],
-      popularMovies: response[2],
-      upcomingMovies: response[3],
-      topRatedMovies: response[4],
+      slideShowMovies: response[0],
+      popularMovies: response[1],
+      upcomingMovies: response[2],
+      topRatedMovies: response[3],
     ));
   }
 }
