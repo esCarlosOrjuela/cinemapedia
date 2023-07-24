@@ -9,7 +9,7 @@ class Movie {
   final double popularity;
   final double voteAverage;
   final String backdropPath;
-  final DateTime releaseDate;
+  final DateTime? releaseDate;
   final String originalTitle;
   final List<String> genreIds;
   final String originalLanguage;

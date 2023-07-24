@@ -11,7 +11,7 @@ class MovieDbDTO {
     final List<int> genreIds;
     final String backdropPath;
     final String originalTitle;
-    final DateTime releaseDate;
+    final DateTime? releaseDate;
     final String originalLanguage;
 
     MovieDbDTO({
@@ -44,7 +44,7 @@ class MovieDbDTO {
         popularity: json["popularity"]?.toDouble(),
         originalLanguage: json["original_language"],
         voteAverage: json["vote_average"]?.toDouble(),
-        releaseDate: DateTime.parse(json["release_date"]),
+        releaseDate: json["release_date"] != null && json["release_date"].toString().isNotEmpty ? DateTime.parse(json["release_date"]) : null,
         genreIds: List<int>.from(json["genre_ids"].map((x) => x)),
     );
 
@@ -62,6 +62,6 @@ class MovieDbDTO {
         "original_title": originalTitle,
         "original_language": originalLanguage,
         "genre_ids": List<dynamic>.from(genreIds.map((x) => x)),
-        "release_date": "${releaseDate.year.toString().padLeft(4, '0')}-${releaseDate.month.toString().padLeft(2, '0')}-${releaseDate.day.toString().padLeft(2, '0')}",
+        "release_date": "${releaseDate?.year.toString().padLeft(4, '0')}-${releaseDate?.month.toString().padLeft(2, '0')}-${releaseDate?.day.toString().padLeft(2, '0')}",
     };
 }
