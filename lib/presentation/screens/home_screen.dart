@@ -1,4 +1,3 @@
-import 'package:cinemapedia/config/theme/custom_text_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:cinemapedia/domain/entities/movie.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
