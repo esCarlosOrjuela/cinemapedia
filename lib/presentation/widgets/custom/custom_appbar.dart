@@ -1,3 +1,4 @@
+import 'package:cinemapedia/config/theme/theme_manager.dart';
 import 'package:flutter/material.dart';
 
 class CustomAppbar extends StatelessWidget {
@@ -6,7 +7,7 @@ class CustomAppbar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colorsTheme = Theme.of(context).colorScheme;
-    final textTheme = Theme.of(context).textTheme; 
+    final textTheme = Theme.of(context).textTheme;
     return SafeArea(
       bottom: false, // => eliminar espacio inferior
       child: Padding(
@@ -20,11 +21,12 @@ class CustomAppbar extends StatelessWidget {
               Text('Cinemapedia', style: textTheme.titleMedium),
               const Spacer(), //=> Ocupa todo el espacio vacio hasta dejar el siguiente elemento contra la margen
               IconButton(
-                onPressed: () {
-                
-                },
-                icon: const Icon(Icons.search)
-              )
+                  onPressed: ThemeManager.switchTheme,
+                  icon: Icon(
+                    ThemeManager.isLightTheme
+                        ? Icons.dark_mode
+                        : Icons.light_mode,
+                  ))
             ],
           ),
         ),

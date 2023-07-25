@@ -1,4 +1,5 @@
 import 'package:animate_do/animate_do.dart';
+import 'package:cinemapedia/config/theme/custom_text_theme.dart';
 import 'package:cinemapedia/domain/entities/movie.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -69,19 +70,20 @@ class _TitleBarView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final textStyle = Theme.of(context).textTheme;
+    var textStyle = Theme.of(context).extension<CustomTextTheme>()!;
+
     return Container(
       padding: const EdgeInsets.only(top: 20, bottom: 10),
       margin: const EdgeInsets.symmetric(horizontal: 15),
       child: Row(
         children: [
-          if (title != null) Text(title!, style: textStyle.titleLarge),
+          if (title != null) Text(title!, style: textStyle.title),
           const Spacer(),
           if (subTitle != null)
             FilledButton.tonal(
               onPressed: () => {},
               style: const ButtonStyle(visualDensity: VisualDensity.compact),
-              child: Text(subTitle!),
+              child: Text(subTitle!, style: textStyle.subtitle),
             ),
         ],
       ),
@@ -135,7 +137,8 @@ class _ListViewMovies extends StatelessWidget {
                         }
 
                         return GestureDetector(
-                            onTap: () => context.push('/movieScreen/${movie.id}'),
+                            onTap: () =>
+                                context.push('/movieScreen/${movie.id}'),
                             child: FadeInRight(child: child));
                       },
                     ),
