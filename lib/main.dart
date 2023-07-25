@@ -1,8 +1,10 @@
+import 'package:cinemapedia/config/theme/dark/dark_theme.dart';
+import 'package:cinemapedia/config/theme/light/light_theme.dart';
+import 'package:cinemapedia/config/theme/theme_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import 'config/theme/app_theme.dart';
 import 'config/navigator/app_router.dart';
 
 Future<void> main() async {
@@ -19,7 +21,14 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp.router(
-        routerConfig: appRouter, theme: AppTheme().getTheme());
+    return ValueListenableBuilder<ThemeMode>(
+      builder: (_, themeMode, __) => MaterialApp.router(
+        routerConfig: appRouter,
+        theme: LightTheme.themeData,
+        darkTheme: DarkTheme.themeData,
+        themeMode: themeMode,
+      ),
+      valueListenable: ThemeManager.themeMode,
+    );
   }
 }
