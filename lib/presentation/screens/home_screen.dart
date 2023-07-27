@@ -40,8 +40,7 @@ class _HomeViewState extends ConsumerState<_HomeView> {
     if (initialLoading) return const FullScreenLoader();
 
     List<Movie> nowPlayingMovies = ref.watch(nowPlayingMoviesProvider);
-    nowPlayingMovies =
-        (nowPlayingMovies.isEmpty) ? [] : nowPlayingMovies.sublist(0, 8);
+    nowPlayingMovies =  (nowPlayingMovies.isEmpty) ? [] : nowPlayingMovies.sublist(0, 8);
     List<Movie> slideShowMovies = ref.watch(nowPlayingMoviesProvider);
     List<Movie> popularMovies = ref.watch(popularMoviesProvider);
     List<Movie> upcomingMovies = ref.watch(upcomingMoviesProvider);

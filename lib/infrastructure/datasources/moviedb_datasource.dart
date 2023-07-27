@@ -7,11 +7,15 @@ import '../../domain/datasources/imovies_datasource.dart';
 import '../dto/moviedb/moviedb_response_dto.dart';
 
 class Endpoints {
+  /// Documentación
+  /// https://developer.themoviedb.org/reference/intro/getting-started
+
   static String pathNowPlaying = 'movie/now_playing';
   static String pathPopular = 'movie/popular';
   static String pathUpcoming = 'movie/upcoming';
   static String pathTopRated = 'movie/top_rated';
   static String pathMovieById = 'movie/';
+  static String pathSearchMovie = 'search/movie';
 }
 
 ///  Clase que implementa el contrato para conectar a un datasource a peliculas: MovieDb
@@ -72,5 +76,17 @@ class MovieDbDataSource extends IMoviesDataSource {
     final movieDB = MovieDetailsDTO.fromJson(response.data);
     final Movie movie = MovieMapper.movieDetailsToEntity(movieDB);
     return movie;
+  }
+
+  @override
+  Future<List<Movie>> searchMovies(String query) async {
+    final response = await dio
+        .get(Endpoints.pathSearchMovie, queryParameters: {'query': query});
+
+    if (response.statusCode != 200) {
+      throw Exception('Movie with query: $query not found');
+    }
+
+    return _jsonToMovie(response.data);
   }
 }

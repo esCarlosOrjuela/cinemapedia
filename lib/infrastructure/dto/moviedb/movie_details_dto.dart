@@ -60,7 +60,7 @@ class MovieDetailsDTO {
         video: json["video"],
         budget: json["budget"],
         status: json["status"],
-        imdbId: json["imdb_id"],
+        imdbId: json["imdb_id"] ?? '',
         tagline: json["tagline"],
         revenue: json["revenue"],
         runtime: json["runtime"],

@@ -44,8 +44,8 @@ class MovieDbDTO {
         popularity: json["popularity"]?.toDouble(),
         originalLanguage: json["original_language"],
         voteAverage: json["vote_average"]?.toDouble(),
-        releaseDate: json["release_date"] != null && json["release_date"].toString().isNotEmpty ? DateTime.parse(json["release_date"]) : null,
         genreIds: List<int>.from(json["genre_ids"].map((x) => x)),
+        releaseDate: json["release_date"] != null && json["release_date"].toString().isNotEmpty ? DateTime.parse(json["release_date"]) : null,
     );
 
     Map<String, dynamic> toJson() => {

@@ -17,7 +17,7 @@ class MovieMapper {
       originalLanguage: movieDb.originalLanguage,
       posterPath: (movieDb.posterPath.isNotEmpty)
           ? 'https://image.tmdb.org/t/p/w500/${movieDb.posterPath}'
-          : 'no-poster',
+          : 'https://www.tgv.com.my/assets/images/404/movie-poster.jpg',
       backdropPath: (movieDb.backdropPath.isNotEmpty)
           ? 'https://image.tmdb.org/t/p/w500/${movieDb.backdropPath}'
           : 'https://www.tgv.com.my/assets/images/404/movie-poster.jpg',
