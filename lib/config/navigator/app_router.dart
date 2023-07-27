@@ -1,11 +1,15 @@
 import 'package:go_router/go_router.dart';
 import '../../presentation/screens/screens.dart';
 
-final GoRouter appRouter = GoRouter(initialLocation: '/', routes: [
+final GoRouter appRouter = GoRouter(initialLocation: '/home/0', routes: [
   GoRoute(
-      path: '/',
+      path: '/home/:page',
       name: RoutesScreenApp.homeScreen.toString(),
-      builder: (context, state) => const HomeScreens(),
+      builder: (context, state) {
+        int page = int.parse(state.pathParameters['page'].toString()) ?? 0;
+        if(page >= 3) page = 0;
+        return HomeScreens(pageIndex: page,);
+      },
       routes: [
         GoRoute(
           path: 'movieScreen/:movieId',
@@ -15,7 +19,15 @@ final GoRouter appRouter = GoRouter(initialLocation: '/', routes: [
             return MovieScreen(movieId: movieId);
           },
         )
-      ])
+      ]),
+      GoRoute(
+        path: '/',
+        redirect: (_, __) => '/home/0',
+      )
 ]);
 
-enum RoutesScreenApp { homeScreen, movieScreen }
+enum RoutesScreenApp { 
+  homeScreen, 
+  favoritesScreen,
+  movieScreen,
+}

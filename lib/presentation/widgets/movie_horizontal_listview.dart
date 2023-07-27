@@ -135,7 +135,7 @@ class _ListViewMovies extends StatelessWidget {
                         }
 
                         return GestureDetector(
-                            onTap: () => context.push('/movieScreen/${movie.id}'),
+                            onTap: () => context.push('/home/0/movieScreen/${movie.id}'),
                             child: FadeInRight(child: child));
                       },
                     ),
