@@ -40,10 +40,10 @@ class MovieScreenState extends ConsumerState<MovieScreen> {
         physics: const ClampingScrollPhysics(),
         slivers: [
           _CustomSliverAppBar(movie: movie),
-          SliverList(delegate: SliverChildBuilderDelegate(
-            (context, index) => _MovieDetails(movie: movie),
-            childCount: 1
-          ))
+          SliverList(
+              delegate: SliverChildBuilderDelegate(
+                  (context, index) => _MovieDetails(movie: movie),
+                  childCount: 1))
         ],
       ),
     );
@@ -97,7 +97,8 @@ class _MovieDetails extends StatelessWidget {
                     margin: const EdgeInsets.only(right: 10),
                     child: Chip(
                       label: Text(gender),
-                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20)),
                     ),
                   ))
             ],
@@ -120,6 +121,9 @@ class _CustomSliverAppBar extends StatelessWidget {
 
     return SliverAppBar(
       backgroundColor: Colors.black,
+      actions: [
+        IconButton(onPressed: () => {}, icon: const Icon(Icons.favorite_border))
+      ],
       foregroundColor: Colors.white, // Color boton atras
       expandedHeight: sizeDevice.height * 0.7, // Ocupe el 70% de la pantalla
       flexibleSpace: FlexibleSpaceBar(
@@ -133,36 +137,61 @@ class _CustomSliverAppBar extends StatelessWidget {
                 movie.posterPath,
                 fit: BoxFit.cover,
                 loadingBuilder: (context, child, loadingProgress) {
-                  if(loadingProgress != null) return const SizedBox();
+                  if (loadingProgress != null) return const SizedBox();
                   return FadeIn(child: child);
                 },
               ),
             ),
+            /** Gradiente Superior Favoritos */
+            const _CustomGradient(
+              stops: [0.0, 0.3],
+              end: Alignment.bottomLeft,
+              begin: Alignment.topRight,
+              colors: [Colors.black87, Colors.transparent],
+            ),
             /** Gradiente Superior */
-            const SizedBox.expand(
-              child: DecoratedBox(
-                decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                  colors: [Colors.black87, Colors.transparent],
-                  stops: [0.0, 0.5],
-                  begin: Alignment.topLeft,
-                )),
-              ),
+            const _CustomGradient(
+              stops: [0.0, 0.5],
+              begin: Alignment.topLeft,
+              colors: [Colors.black87, Colors.transparent],
             ),
             /** Gradiente Inferior */
-            const SizedBox.expand(
-              child: DecoratedBox(
-                decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                  colors: [Colors.transparent, Colors.black87],
-                  stops: [0.7, 1.0],
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
-                )),
-              ),
-            )
+            const _CustomGradient(
+              stops: [0.7, 1.0],
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+              colors: [Colors.transparent, Colors.black87],
+            ),
           ],
         ),
+      ),
+    );
+  }
+}
+
+class _CustomGradient extends StatelessWidget {
+  final AlignmentGeometry begin;
+  final AlignmentGeometry end;
+  final List<double> stops;
+  final List<Color> colors;
+
+  const _CustomGradient(
+      {this.begin = Alignment.centerLeft,
+      this.end = Alignment.centerRight,
+      required this.stops,
+      required this.colors});
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox.expand(
+      child: DecoratedBox(
+        decoration: BoxDecoration(
+            gradient: LinearGradient(
+          colors: colors,
+          stops: stops,
+          end: end,
+          begin: begin,
+        )),
       ),
     );
   }

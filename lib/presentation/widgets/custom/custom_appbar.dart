@@ -27,7 +27,6 @@ class CustomAppbar extends ConsumerWidget {
               const Spacer(), //=> Ocupa todo el espacio vacio hasta dejar el siguiente elemento contra la margen
               IconButton(
                 onPressed: () {
-                  final searchedMovies = ref.read(searchMoviesProvider);
                   final searchQuery = ref.read(searchQueryProvider);
 
                   showSearch<Movie?>(
@@ -37,7 +36,7 @@ class CustomAppbar extends ConsumerWidget {
                   ).then((movieSelected) {
                     if(movieSelected == null) return;
                     ref.read(searchQueryProvider.notifier).update((state) => movieSelected.title);
-                    context.push('/movieScreen/${movieSelected.id}');
+                    context.push('/home/0/movieScreen/${movieSelected.id}');
                   });
 
                 },
