@@ -31,69 +31,69 @@ class _HomeViewState extends ConsumerState<_HomeView> {
     return BlocProvider(
       create: InitialLoadingController.new,
       child: BlocBuilder<InitialLoadingController, LoadingState>(
-        builder: (_, state) => state is InitialLoadingState
-            ? const FullScreenLoader()
-            : CustomScrollView(
-                slivers: [
-                  const SliverAppBar(
-                    floating: true,
-                    flexibleSpace: FlexibleSpaceBar(
-                      title: CustomAppbar(),
-                    ),
+          builder: (_, state) => switch (state) {
+                InitialLoadingState() => const FullScreenLoader(),
+                SteadyLoadingState() => CustomScrollView(
+                    slivers: [
+                      const SliverAppBar(
+                        floating: true,
+                        flexibleSpace: FlexibleSpaceBar(
+                          title: CustomAppbar(),
+                        ),
+                      ),
+                      SliverList(
+                          delegate: SliverChildBuilderDelegate(
+                        (context, index) {
+                          return Column(
+                            children: [
+                              const SizedBox(height: 15),
+                              MoviesSlideShow(
+                                  movieCollection: state.nowPlayingMovies),
+                              //** */
+                              MovieHorizontalListView(
+                                movies: state.slideShowMovies,
+                                title: 'En cines',
+                                subTitle: 'Jueves 20',
+                                loadNextPage: () => ref
+                                    .read(nowPlayingMoviesProvider.notifier)
+                                    .loadNextPage(),
+                              ),
+                              //** */
+                              MovieHorizontalListView(
+                                movies: state.popularMovies,
+                                title: 'Populares para ti',
+                                subTitle: 'Agosto',
+                                loadNextPage: () => ref
+                                    .read(popularMoviesProvider.notifier)
+                                    .loadNextPage(),
+                              ),
+                              //** */
+                              MovieHorizontalListView(
+                                movies: state.upcomingMovies,
+                                title: 'Proximamente',
+                                subTitle: 'En Agosto',
+                                loadNextPage: () => ref
+                                    .read(upcomingMoviesProvider.notifier)
+                                    .loadNextPage(),
+                              ),
+                              //** */
+                              MovieHorizontalListView(
+                                movies: state.topRatedMovies,
+                                title: 'Mejor calificadas',
+                                subTitle: '2023',
+                                loadNextPage: () => ref
+                                    .read(topRatedMoviesProvider.notifier)
+                                    .loadNextPage(),
+                              ),
+                              const SizedBox(height: 27),
+                            ],
+                          );
+                        },
+                        childCount: 1,
+                      ))
+                    ],
                   ),
-                  SliverList(
-                      delegate: SliverChildBuilderDelegate(
-                    (context, index) {
-                      return Column(
-                        children: [
-                          const SizedBox(height: 15),
-                          MoviesSlideShow(
-                              movieCollection: state.nowPlayingMovies),
-                          //** */
-                          MovieHorizontalListView(
-                            movies: state.slideShowMovies,
-                            title: 'En cines',
-                            subTitle: 'Jueves 20',
-                            loadNextPage: () => ref
-                                .read(nowPlayingMoviesProvider.notifier)
-                                .loadNextPage(),
-                          ),
-                          //** */
-                          MovieHorizontalListView(
-                            movies: state.popularMovies,
-                            title: 'Populares para ti',
-                            subTitle: 'Agosto',
-                            loadNextPage: () => ref
-                                .read(popularMoviesProvider.notifier)
-                                .loadNextPage(),
-                          ),
-                          //** */
-                          MovieHorizontalListView(
-                            movies: state.upcomingMovies,
-                            title: 'Proximamente',
-                            subTitle: 'En Agosto',
-                            loadNextPage: () => ref
-                                .read(upcomingMoviesProvider.notifier)
-                                .loadNextPage(),
-                          ),
-                          //** */
-                          MovieHorizontalListView(
-                            movies: state.topRatedMovies,
-                            title: 'Mejor calificadas',
-                            subTitle: '2023',
-                            loadNextPage: () => ref
-                                .read(topRatedMoviesProvider.notifier)
-                                .loadNextPage(),
-                          ),
-                          const SizedBox(height: 27),
-                        ],
-                      );
-                    },
-                    childCount: 1,
-                  ))
-                ],
-              ),
-      ),
+              }),
     );
   }
 }

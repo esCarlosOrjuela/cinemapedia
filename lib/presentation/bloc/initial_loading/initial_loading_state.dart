@@ -1,6 +1,6 @@
 import 'package:cinemapedia/domain/entities/movie.dart';
 
-abstract class LoadingState {
+sealed class LoadingState {
   final List<Movie> nowPlayingMovies;
   final List<Movie> slideShowMovies;
   final List<Movie> popularMovies;
